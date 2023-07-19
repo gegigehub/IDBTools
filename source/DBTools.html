@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8" />
+		<title>IDBTools</title><!--7.2-->
+		<!-- 08/07/23 Use jQuery Autocomplete Widget as Input Select -->
+		<!-- 14/07/23 localForage export -->
+		<!-- 17/07/23 Import, Export localForage -->
+		<link rel="stylesheet" href="css/jquery-ui-themes-1.11.1/themes/smoothness/jquery-ui.css"/>
+		<link rel="stylesheet" href="css/w2ui-1.5.css">
+		<link rel="stylesheet" href="css/style.css">
+		
+		<script src="jquery/jquery-2.2.4.js"></script>
+		<script src="jquery/jquery-ui-1.11.2/jquery-ui.js"></script>		
+		<script src="W2UI/w2ui-1.5.js"></script>		
+		<script src="localforage/localforage-1.10.0.js"></script>
+		<script src="FileSaver/FileSaver-1.3.2/FileSaver.js"></script>	
+		<script src="js/DBTools.js"></script>
+		<script src="js/database.js"></script>
+		<script src="js/objectstore.js"></script>
+		<script src="js/index.js"></script>
+		<script src="js/dialogs.js"></script>
+		<script src="js/indexedDB.js"></script>
+		<script src="js/Import.js"></script>
+		<script src="js/Export.js"></script>
+		<script src="js/gridEvents.js"></script>
+		<script src="js/toolbarEvents.js"></script>
+		<script src="js/popup.js"></script>		
+		<script src="js/main.js"></script>
+	</head>
+	<body>
+		<div style="padding: 20px 0px">
+			<button class="w2ui-btn" onclick="openPopup()">Open Popup</button>
+		</div>
+
+		<div id="errorDialog" style="display:none;">
+			<p>
+				<div class="icon-alert"></div>
+				<div id="error-Text"></div>
+			</p>
+		</div>
+		
+		<div id="confirmDialog" style="display:none;">
+			<p>
+				<div class="icon-alert"></div>
+				<div id="confirm-Text"></div>
+			</p>
+		</div>
+		
+		<div id="importDbDialog" style="display:none;">
+			<div>
+				<input type="file" id="importDbFileInput" onchange="handleDBFiles(this.files)" accept=".json">
+			</div>		
+		</div>
+		
+		<div id="addIDBDialog">
+			<div>
+				<label for="addIDBDialog-InputDbName">Name</label>
+				<input type="text" name="addIDBDialog-DbName" id="addIDBDialog-InputDbName" value="" class="ui-widget-content ui-corner-all" />
+			</div>			
+		</div>
+		
+		<div id="addForageDialog">
+			<div>
+				<label for="addForageDialog-InputDbName">Name</label>
+				<input type="text" name="addForageDialog-DbName" id="addForageDialog-InputDbName" value="" class="ui-widget-content ui-corner-all" />
+			</div>
+			<div>
+				<label for="addForageDialog-InputStoreName">Store name</label>
+				<input type="text" name="addForageDialog-storeName" id="addForageDialog-InputStoreName" value="keyvaluepairs" class="ui-widget-content ui-corner-all" />
+			</div>	
+		</div>
+		
+		<div id="delDbDialog" style="display:none;">
+			<p>
+				<div class="icon-alert"></div>
+				<div id="delDbDialog-confirmText"></div>				
+			</p>
+		</div>
+		
+		<div id="DbSaveAsDialog" style="display:none;">
+			<div>
+				<label for="DbSaveAsDialog-InputName">Name :</label>
+				<input autocomplete="off" type="text" id="DbSaveAsDialog-InputName" name="DbSaveAsDialog-InputName" class="ui-corner-all" />
+			</div>
+		</div>
+		
+		<div id="addIndexDialog" style="display:none;">
+			<div>
+				<label for="addIndexDialog-InputName">Name</label>
+				<input autocomplete="off" type="text" id="addIndexDialog-InputName" name="addIndexDialog-InputName" class="ui-corner-all" />
+								
+				<div>
+					<label for="addIndexDialog-selectKeypath">Keypath</label>
+					<input id="addIndexDialog-selectKeypath"  name="addIndexDialog-keyPath" type="text" />
+					<button type="button" class="butKeyPath"></button>					
+				</div>
+
+				<label for="addIndexDialog-CbUnique">Unique</label>
+				<input type="checkbox" name="addIndexDialog-Unique" id="addIndexDialog-CbUnique"/>					
+			</div>
+		</div>
+		
+		<div id="editIndexDialog" style="display:none;">
+			<div>
+				<label for="editIndexDialog-InputName">Name</label>
+				<input autocomplete="off" type="text" id="editIndexDialog-InputName" name="editIndexDialog-InputName" class="ui-corner-all" />
+								
+				<div>
+					<label for="editIndexDialog-selectKeypath">Keypath</label>
+					<input id="editIndexDialog-selectKeypath"  name="editIndexDialog-keyPath" type="text" class="ui-corner-all" />
+					<button type="button" class="butKeyPath"></button>					
+				</div>
+
+				<input type="checkbox" name="editIndexDialog-Unique" id="editIndexDialog-CbUnique"/>					
+				<label for="editIndexDialog-CbUnique">Unique</label>
+			</div>
+		</div>
+		
+		<div id="delIndexDialog" style="display:none;">
+			<div>
+				<label for="delIndexDialog-InputName">Name :</label>
+				<input autocomplete="off" type="text" id="delIndexDialog-InputName" name="delIndexDialog-Name" class="ui-corner-all" />
+			</div>
+		</div>
+		
+		<div id="renameIndexDialog" style="display:none;">
+			<div>
+				<label for="renameIndexDialog-InputOldName">Old Name</label>
+				<input autocomplete="off" type="text" id="renameIndexDialog-InputOldName" name="renameIndexDialog-oldName" class="ui-corner-all" />
+			</div>
+			<div>
+				<label for="renameIndexDialog-InputNewName">New Name</label>
+				<input autocomplete="off" type="text" id="renameIndexDialog-InputNewName" name="renameIndexDialog-newName" class="ui-corner-all" />				
+			</div>
+		</div>
+		
+		<div id="addOsDialog" style="display:none;">
+			<div>
+				<label for="addOsDialog-InputName">Name</label>
+				<input autocomplete="off" type="text" id="addOsDialog-InputName" name="addOsDialog-InputName" class="ui-corner-all" />				
+			</div>
+		</div>
+		
+		<div id="editOSDialog" style="display:none;">
+			<div>
+				<label for="editOSDialog-InputName">Name</label>
+				<input autocomplete="off" type="text" id="editOSDialog-InputName" name="editOSDialog-Name" Disabled class="ui-corner-all" />
+			</div>	
+			<div>
+				<label for="editOSDialog-selectKeypath">keyPath</label>
+				<input id="editOSDialog-selectKeypath"  name="editOSDialog-keyPath" type="text" />
+				<button type="button" class="butKeyPath"></button>							
+			</div>
+			<div>
+				<input type="checkbox" name="editOSDialog-Cb" id="editOSDialog-autoIncrement" />				
+				<label for="editOSDialog-autoIncrement">autoIncrement</label>
+			</div>
+		</div>
+		
+		<div id="delOsDialog" style="display:none;">
+			<div>
+				<label for="delOsDialog-InputName">Name :</label>
+				<input autocomplete="off" type="text" id="delOsDialog-InputName" name="delOsDialog-InputName" class="ui-corner-all" />
+			</div>
+		</div>
+		
+		<div id="renameOsDialog" style="display:none;">
+			<div>
+				<label for="renameOsDialog-InputOldName">Old Name</label>
+				<input autocomplete="off" type="text" id="renameOsDialog-InputOldName" name="renameOsDialog-InputOldName" class="ui-corner-all" />
+			</div>
+			<div>
+				<label for="renameOsDialog-InputNewName">New Name</label>
+				<input autocomplete="off" type="text" id="renameOsDialog-InputNewName" name="renameOsDialog-InputNewName" class="ui-corner-all" />				
+			</div>
+		</div>
+	</body>
+</html>

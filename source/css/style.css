@@ -1,0 +1,268 @@
+
+body {
+	font-family:Arial, sans-serif;
+	font-size: 12px;
+	line-height: 17px;
+}
+
+.iconAddDB{
+	background:url(images/database-add16.png) no-repeat center;	
+}
+.iconDeleteDB{
+	background:url(images/database-remove16.png) no-repeat center;	
+}
+.iconImportDB{
+	background:url(images/database-import16.png) no-repeat center;
+}
+.iconExportDB{
+	background:url(images/database-export16.png) no-repeat center;
+}
+.iconEditDB {
+	background:url(images/database-edit16.gif) no-repeat center;	
+}
+.iconRename{
+	background:url(images/rename.png) no-repeat center;
+}
+
+
+/* W2UI */
+/* X icon Delete */
+.w2ui-icon-cross:before {
+  color:red;
+}
+/* + icon Add */
+.w2ui-icon-plus:before {
+	color:green;
+}
+
+.w2ui-popup
+{
+	z-index: 1200;
+	/*z-index: 1500;*/
+}
+
+.w2ui-tabs .w2ui-scroll-wrapper .w2ui-tabs-line {
+  bottom: 0px;
+  height:26px;
+}
+
+.w2ui-tab.active
+{
+	border-top: 1px solid orange !important;	
+}
+
+.w2ui-grid .w2ui-changed {
+  background: none;
+}
+
+td#grid_gridIDB_column_1.w2ui-head,
+td#grid_gridForage_column_1.w2ui-head
+{
+    padding-left:17px;
+}
+
+td#grid_gridObjectStore_column_1.w2ui-head,
+td#grid_gridIndex_column_1.w2ui-head
+{
+	height:28px;
+}
+
+.w2ui-grid .w2ui-grid-body .w2ui-grid-records table tr.w2ui-selected
+/*.w2ui-grid .w2ui-grid-body .w2ui-grid-frecords table tr.w2ui-selected
+.w2ui-grid .w2ui-grid-body .w2ui-grid-records table tr td.w2ui-selected
+.w2ui-grid .w2ui-grid-body .w2ui-grid-frecords table tr td.w2ui-selected*/
+{
+  color: black !important;
+  background-color: #B6D5FF !important;
+}
+/*************************************************************************/
+/* jQuery */
+
+.ui-autocomplete
+{
+	max-height: 120px;
+    overflow-y: auto;
+	/* prevent horizontal scrollbar */
+    overflow-x: hidden;	
+}
+
+/*.defaultIcon
+{
+    background-image: url(images/caret-right9.png) !important;
+    width: 10px;
+    height: 10px;	
+}
+.selectedIcon
+{
+    background-image: url(images/caret-down10.png) !important;
+    width: 10px;
+    height: 10px;
+}*/
+
+.ui-dialog {
+	/* Ajouté z-index pour compatibilité avec W2UI, sinon le dialog n'est pas visible */
+	z-index: 1600;	
+}
+
+/*************************************************************************/
+/*	Dialogs	*/
+#errorDialog .icon-alert, 
+#confirmDialog .icon-alert,
+#delDbDialog .icon-alert
+{
+	background:url(images/Warning.png) no-repeat center;
+	width: 48px;
+	height: 48px;
+	float:left;
+	margin:10px 14px 0 0;
+}
+
+#DbSaveAsDialog-InputName
+{
+	margin:20px 0 0 14px;
+	width:70%;	
+}
+
+#addIDBDialog-InputDbName
+{
+	margin:20px 0 10px 36px;
+	width:70%;
+}
+
+#addForageDialog-InputDbName
+{
+	margin:10px 0 10px 36px;
+	width:70%;
+}
+
+#addForageDialog-InputStoreName
+{
+	margin:10px 0 10px 0;
+	width:70%;	
+}
+
+#addOsDialog-InputName
+{
+	margin:10px 0 10px 0;
+	width:70%;
+}
+
+#editOSDialog .butKeyPath,
+#addIndexDialog .butKeyPath,
+#editIndexDialog .butKeyPath
+{
+	position:relative;
+	left:-4px;
+	top:-2px;
+	width: 22px;
+	height: 22px;	
+}
+
+#editOSDialog-InputName
+{
+	margin:5px 0 10px 36px;
+	width:72%;
+}
+
+#editOSDialog-selectKeypath
+{
+	margin:0 0 10px 20px;
+	width:66%;
+}
+
+#renameOsDialog-InputOldName
+{
+	margin: 10px 0 10px 8px;
+	width:70%;
+}
+
+#renameOsDialog-InputNewName
+{
+	width:70%;	
+}
+
+#delOsDialog-InputName
+{
+	margin:10px 0 0 14px;
+	width:70%;
+}
+
+#renameIndexDialog-InputOldName
+{
+	margin: 10px 0 10px 8px;
+	width:70%;
+}
+
+#renameIndexDialog-InputNewName
+{
+	width:70%;	
+}
+
+#addIndexDialog-InputName
+{
+	margin:10px 0 10px 22px;
+	width:68%;
+}
+
+#addIndexDialog-selectKeypath
+{
+	margin:0 0 10px 6px;
+	width:62%;	
+}
+
+#delIndexDialog-InputName
+{
+	margin:10px 0 0 14px;
+	width:70%;
+}
+
+#importDbFileInput
+{
+	margin:20px 0 0 14px;	
+}
+
+#editIndexDialog-InputName
+{
+	margin:5px 0 10px 26px;
+	width:72%;	
+}
+
+#editIndexDialog-selectKeypath
+{
+	margin:0 0 10px 10px;
+	width:64%;
+}
+
+#importDbDialog-OSTable
+{
+	border-collapse: collapse;	
+	width: 100%;
+}
+
+#importDbDialog-OSTable td
+{
+	border: 2px solid #e1e1e1;
+	padding: 2px 3px;	
+}
+
+#importDbDialog #OSTable-input-AutoInc
+{
+	margin: 10px 0 0 0;	
+}
+
+
+/* Permet, pour les cellules éditables de supprimer ou changer la bordure par défaut.*/
+/*[contenteditable]:focus {				
+    outline: 2px solid #COB9B4;
+	color:red;
+	background-color:white;
+}*/
+
+/* 	Pour supprimer l'horrible bordure noire ajoutée par Chrome quand un élément a le focus
+	https://stackoverflow.com/questions/61992025/google-chrome-showing-black-border-on-focus-state-for-button-user-agent-styles
+*/
+*,*:focus{
+    outline:none;
+}
+
+ 
