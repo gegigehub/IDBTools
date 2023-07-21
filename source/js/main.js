@@ -66,15 +66,15 @@ function initDBTools()
 	var localForageIndex = 0;
 	var localForageObject;
 			
-	// On renvoie dans le tableau d'objets 'allDB' les noms et version de toutes les bases de données indexées enregistrées dans le menu 'Appli - Bases de données indexées'
-	// Cela comprend IndexedDB et localForage.
+	// In the 'allDB' object array, we return the names and versions of all indexed databases registered in the 'Appli - Indexed databases' menu.
+	// This includes IndexedDB and, in my case, localForage (IndexedDB driver).
 	getAllDB(function(allDB)		
 	{
 		allDB.forEach(async function(value, index)
 		{
-			// On doit ouvrir une à une les bases de données pour déterminer si c'est IndexedDB ou localForage, en effet à priori seules les BD localForage possèdent un 'objectStore' nommé 'local-forage-detect-blob-support'.
-			// Cela dit il est possible de renommer les Objectstores même sur une base localForage, ce n'est donc pas un test fiable à 100%.
-			// Via une 'promise' on obtient une variable 'curDBConnect' qui permet de travailler avec la base de données (Transactions, ObjectStores...)
+			// 	You need to open the databases one by one to determine whether it's IndexedDB or localForage, because a priori only localForage databases have an 'objectStore' named 'local-forage-detect-blob-support'.
+			//	That said, it is possible to rename Objectstores even on a localForage database, so it's not a 100% reliable test, but it works pretty well.
+			//	Via a 'promise', we obtain a 'curDBConnect' variable which allows us to work with the database (Transactions, ObjectStores...).
 			let curDBConnect = await openIndexedDB(value.name, value.version);
 			
 			if( curDBConnect.objectStoreNames.contains('local-forage-detect-blob-support') )
