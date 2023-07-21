@@ -1,0 +1,22 @@
+{
+  "name": "idbtools",
+  "version": "1.0.0",
+  "description": "tools for indexeddb",
+  "main": "IDBTools.html",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "IDBTools"
+  },
+  "keywords": [
+    "idb"
+  ],
+  "author": "gérard pailler",
+  "license": "MIT",
+  {
+  "dependencies": {
+    "localforage": "^1.10.0"
+  }
+}
